@@ -1,7 +1,6 @@
-import { motion, AnimatePresence } from "framer-motion";
-import { useInView } from "framer-motion";
+import { motion, AnimatePresence, useInView } from "framer-motion";
 import { useRef, useState } from "react";
-import { Play, X } from "lucide-react";
+import { Play, X, ExternalLink } from "lucide-react";
 
 const categories = ["All", "YouTube", "Reels", "Ads"];
 
@@ -62,6 +61,151 @@ const projects = [
   },
 ];
 
+// Animated filter button
+function FilterButton({ 
+  category, 
+  isActive, 
+  onClick 
+}: { 
+  category: string; 
+  isActive: boolean; 
+  onClick: () => void;
+}) {
+  return (
+    <motion.button
+      onClick={onClick}
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
+      className={`relative px-5 py-2 rounded-full text-sm font-medium transition-colors ${
+        isActive
+          ? "text-black"
+          : "bg-card border border-border text-muted-foreground hover:text-foreground"
+      }`}
+    >
+      {isActive && (
+        <motion.div
+          layoutId="activeFilter"
+          className="absolute inset-0 bg-[hsl(var(--gold))] rounded-full"
+          transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+        />
+      )}
+      <span className="relative z-10">{category}</span>
+    </motion.button>
+  );
+}
+
+// Portfolio card with hover effects
+function PortfolioCard({ 
+  project, 
+  onClick 
+}: { 
+  project: typeof projects[0]; 
+  onClick: () => void;
+}) {
+  const [isHovered, setIsHovered] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  return (
+    <motion.div
+      ref={ref}
+      layout
+      initial={{ opacity: 0, scale: 0.8 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.8 }}
+      transition={{ duration: 0.4 }}
+      className={`group cursor-pointer ${
+        project.aspectRatio === "16/9" ? "col-span-2" : ""
+      }`}
+      onClick={onClick}
+      onHoverStart={() => setIsHovered(true)}
+      onHoverEnd={() => setIsHovered(false)}
+    >
+      <motion.div
+        className="relative rounded-xl overflow-hidden bg-card"
+        style={{ aspectRatio: project.aspectRatio }}
+        whileHover={{ scale: 1.02 }}
+        transition={{ duration: 0.3 }}
+      >
+        {/* Image with zoom effect */}
+        <motion.img
+          src={project.thumbnail}
+          alt={project.title}
+          className="w-full h-full object-cover"
+          animate={{ scale: isHovered ? 1.1 : 1 }}
+          transition={{ duration: 0.6 }}
+        />
+        
+        {/* Gradient overlay */}
+        <motion.div 
+          className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: isHovered ? 1 : 0 }}
+          transition={{ duration: 0.3 }}
+        />
+        
+        {/* Content overlay */}
+        <motion.div 
+          className="absolute inset-0 flex flex-col items-center justify-center"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: isHovered ? 1 : 0 }}
+        >
+          {/* Play button */}
+          <motion.div
+            className="w-16 h-16 rounded-full bg-[hsl(var(--gold))] flex items-center justify-center mb-4 shadow-lg shadow-[hsl(var(--gold))]/30"
+            initial={{ scale: 0, rotate: -180 }}
+            animate={{ 
+              scale: isHovered ? 1 : 0, 
+              rotate: isHovered ? 0 : -180 
+            }}
+            transition={{ type: "spring", damping: 15, stiffness: 200 }}
+          >
+            <Play size={28} className="text-black ml-1" fill="currentColor" />
+          </motion.div>
+          
+          {/* Title */}
+          <motion.h4 
+            className="font-semibold text-foreground text-lg"
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ 
+              y: isHovered ? 0 : 20, 
+              opacity: isHovered ? 1 : 0 
+            }}
+            transition={{ delay: 0.1 }}
+          >
+            {project.title}
+          </motion.h4>
+          
+          {/* Meta */}
+          <motion.p 
+            className="text-sm text-muted-foreground flex items-center gap-2"
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ 
+              y: isHovered ? 0 : 20, 
+              opacity: isHovered ? 1 : 0 
+            }}
+            transition={{ delay: 0.15 }}
+          >
+            {project.category} • {project.duration}
+          </motion.p>
+        </motion.div>
+
+        {/* Corner badge */}
+        <motion.div
+          className="absolute top-3 right-3 p-2 rounded-full bg-black/50 backdrop-blur-sm"
+          initial={{ opacity: 0, scale: 0 }}
+          animate={{ 
+            opacity: isHovered ? 1 : 0, 
+            scale: isHovered ? 1 : 0 
+          }}
+          transition={{ delay: 0.2 }}
+        >
+          <ExternalLink size={14} className="text-white" />
+        </motion.div>
+      </motion.div>
+    </motion.div>
+  );
+}
+
 export default function PortfolioSection() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
@@ -74,7 +218,7 @@ export default function PortfolioSection() {
       : projects.filter((p) => p.category === activeCategory);
 
   return (
-    <section id="portfolio" className="py-24 md:py-32 bg-background">
+    <section id="portfolio" className="py-24 md:py-32 bg-background overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <motion.div
@@ -84,12 +228,22 @@ export default function PortfolioSection() {
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <span className="text-sm font-medium text-[hsl(var(--gold))] uppercase tracking-[0.15em]">
+          <motion.span
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={isInView ? { opacity: 1, scale: 1 } : {}}
+            transition={{ duration: 0.5 }}
+            className="inline-block text-sm font-medium text-[hsl(var(--gold))] uppercase tracking-[0.15em]"
+          >
             Portfolio
-          </span>
-          <h2 className="font-sora text-3xl md:text-4xl lg:text-5xl font-bold mt-4">
+          </motion.span>
+          <motion.h2 
+            className="font-sora text-3xl md:text-4xl lg:text-5xl font-bold mt-4"
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.5, delay: 0.1 }}
+          >
             Featured <span className="text-gradient">Work</span>
-          </h2>
+          </motion.h2>
         </motion.div>
 
         {/* Filter Buttons */}
@@ -100,17 +254,12 @@ export default function PortfolioSection() {
           className="flex justify-center gap-3 mb-12 flex-wrap"
         >
           {categories.map((category) => (
-            <button
+            <FilterButton
               key={category}
+              category={category}
+              isActive={activeCategory === category}
               onClick={() => setActiveCategory(category)}
-              className={`px-5 py-2 rounded-full text-sm font-medium transition-all ${
-                activeCategory === category
-                  ? "bg-[hsl(var(--gold))] text-black"
-                  : "bg-card border border-border text-muted-foreground hover:border-[hsl(var(--gold))]/50 hover:text-foreground"
-              }`}
-            >
-              {category}
-            </button>
+            />
           ))}
         </motion.div>
 
@@ -121,42 +270,11 @@ export default function PortfolioSection() {
         >
           <AnimatePresence mode="popLayout">
             {filteredProjects.map((project) => (
-              <motion.div
+              <PortfolioCard
                 key={project.id}
-                layout
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.9 }}
-                transition={{ duration: 0.3 }}
-                className={`group cursor-pointer ${
-                  project.aspectRatio === "16/9" ? "col-span-2" : ""
-                }`}
+                project={project}
                 onClick={() => setSelectedVideo(project.videoUrl)}
-              >
-                <div
-                  className="relative rounded-xl overflow-hidden bg-card"
-                  style={{ aspectRatio: project.aspectRatio }}
-                >
-                  <img
-                    src={project.thumbnail}
-                    alt={project.title}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                  
-                  {/* Overlay */}
-                  <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center">
-                    <div className="w-14 h-14 rounded-full bg-[hsl(var(--gold))] flex items-center justify-center mb-3 transform scale-75 group-hover:scale-100 transition-transform">
-                      <Play size={24} className="text-black ml-1" />
-                    </div>
-                    <h4 className="font-semibold text-foreground">
-                      {project.title}
-                    </h4>
-                    <p className="text-sm text-muted-foreground">
-                      {project.category} • {project.duration}
-                    </p>
-                  </div>
-                </div>
-              </motion.div>
+              />
             ))}
           </AnimatePresence>
         </motion.div>
@@ -169,23 +287,26 @@ export default function PortfolioSection() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90"
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/95 backdrop-blur-sm"
             onClick={() => setSelectedVideo(null)}
           >
             <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
+              initial={{ scale: 0.8, opacity: 0, rotateX: -15 }}
+              animate={{ scale: 1, opacity: 1, rotateX: 0 }}
+              exit={{ scale: 0.8, opacity: 0, rotateX: 15 }}
+              transition={{ type: "spring", damping: 20 }}
               className="relative w-full max-w-4xl"
               onClick={(e) => e.stopPropagation()}
             >
-              <button
+              <motion.button
                 onClick={() => setSelectedVideo(null)}
-                className="absolute -top-12 right-0 w-10 h-10 rounded-full bg-[hsl(var(--gold))] flex items-center justify-center text-black hover:opacity-80 transition-opacity"
+                className="absolute -top-14 right-0 w-10 h-10 rounded-full bg-[hsl(var(--gold))] flex items-center justify-center text-black"
+                whileHover={{ scale: 1.1, rotate: 90 }}
+                whileTap={{ scale: 0.9 }}
               >
                 <X size={20} />
-              </button>
-              <div className="relative pb-[56.25%] bg-black rounded-lg overflow-hidden">
+              </motion.button>
+              <div className="relative pb-[56.25%] bg-black rounded-xl overflow-hidden shadow-2xl shadow-[hsl(var(--gold))]/20">
                 <iframe
                   src={selectedVideo}
                   className="absolute inset-0 w-full h-full"
