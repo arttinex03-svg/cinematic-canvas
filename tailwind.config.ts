@@ -18,6 +18,7 @@ export default {
 			inter: ['Inter', 'sans-serif'],
 			playfair: ['Playfair Display', 'serif'],
 			script: ['Dancing Script', 'cursive'],
+			dancing: ['Dancing Script', 'cursive'],
 			sans: [
 				'Inter',
 				'ui-sans-serif',
