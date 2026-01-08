@@ -6,7 +6,7 @@ const experiences = [
   {
     date: "2023 - Present",
     title: "Founder & Creative Lead",
-    company: "KORVN Studios",
+    company: "Portfolio_Atlas Studios",
     description:
       "Leading creative direction for video projects, managing client relationships, and delivering high-quality content for brands and creators.",
   },

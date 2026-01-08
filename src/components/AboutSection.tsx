@@ -62,7 +62,7 @@ export default function AboutSection() {
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="w-32 h-32 rounded-full bg-gradient-to-r from-[hsl(var(--gold))] to-[hsl(var(--gold-light))] opacity-20 blur-3xl" />
                 <span className="absolute font-sora text-6xl font-bold text-foreground/10">
-                  K
+                  PA
                 </span>
               </div>
             </div>

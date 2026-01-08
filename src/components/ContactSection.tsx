@@ -4,7 +4,7 @@ import { useRef, useState } from "react";
 import { Mail, Phone, MapPin, Instagram, Youtube, Twitter, Linkedin, Send } from "lucide-react";
 
 const contactInfo = [
-  { icon: Mail, label: "Email", value: "hello@korvn.com", href: "mailto:hello@korvn.com" },
+  { icon: Mail, label: "Email", value: "hello@portfolioatlas.com", href: "mailto:hello@portfolioatlas.com" },
   { icon: Phone, label: "WhatsApp", value: "+1 (234) 567-890", href: "https://wa.me/1234567890" },
   { icon: MapPin, label: "Location", value: "Available Worldwide", href: null },
 ];

@@ -36,7 +36,7 @@ export default function Navbar() {
             href="#"
             className="font-sora text-xl md:text-2xl font-bold tracking-wider text-foreground"
           >
-            KORVN
+            Portfolio_Atlas
           </a>
 
           {/* Desktop Navigation */}
