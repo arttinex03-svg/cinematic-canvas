@@ -218,7 +218,7 @@ export default function PortfolioSection() {
       : projects.filter((p) => p.category === activeCategory);
 
   return (
-    <section id="portfolio" className="py-24 md:py-32 bg-background overflow-hidden">
+    <section id="portfolio" className="py-24 md:py-32 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <motion.div

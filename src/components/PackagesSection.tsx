@@ -248,7 +248,7 @@ export default function PackagesSection() {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section id="packages" className="py-24 md:py-32 bg-[hsl(var(--surface))] overflow-hidden">
+    <section id="packages" className="py-24 md:py-32 relative overflow-hidden">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <motion.div
