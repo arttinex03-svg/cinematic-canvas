@@ -1,6 +1,7 @@
 import { motion, useInView, useMotionValue, useSpring, useTransform, animate } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
 import { Film, Sparkles, Palette, Volume2, Users, Award, Briefcase, Clock } from "lucide-react";
+import profileImage from "@/assets/profile-shiful.jpg";
 
 const skills = [
   {
@@ -198,87 +199,75 @@ export default function AboutSection() {
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
+        {/* Profile Image First - Hero Style */}
         <motion.div
           ref={ref}
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20 mb-16"
         >
-          <motion.span
-            initial={{ opacity: 0, scale: 0.5 }}
-            animate={isInView ? { opacity: 1, scale: 1 } : {}}
-            transition={{ duration: 0.5 }}
-            className="inline-block text-sm font-medium text-[hsl(var(--gold))] uppercase tracking-[0.15em]"
-          >
-            About Me
-          </motion.span>
-          <h2 className="font-sora text-3xl md:text-4xl lg:text-5xl font-bold mt-4">
-            Crafting Visual <span className="text-gradient">Excellence</span>
-          </h2>
-        </motion.div>
-
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-          {/* 3D Tilt Image */}
+          {/* 3D Tilt Profile Image */}
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="relative perspective-1000"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={isInView ? { opacity: 1, scale: 1 } : {}}
+            transition={{ duration: 0.8, delay: 0.1 }}
+            className="relative perspective-1000 flex-shrink-0"
           >
-            <TiltCard className="relative rounded-2xl overflow-hidden aspect-[4/5] bg-card cursor-pointer">
-              <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent" />
-              
-              {/* Animated background orb */}
-              <motion.div
-                className="absolute inset-0 flex items-center justify-center"
-                animate={{
-                  scale: [1, 1.1, 1],
-                }}
-                transition={{ duration: 4, repeat: Infinity }}
-              >
-                <div className="w-48 h-48 rounded-full bg-gradient-to-r from-[hsl(var(--gold))] to-[hsl(var(--gold-light))] opacity-20 blur-3xl" />
-              </motion.div>
-              
-              <motion.span 
-                className="absolute inset-0 flex items-center justify-center font-sora text-8xl font-bold text-foreground/10"
-                animate={{
-                  opacity: [0.1, 0.15, 0.1],
-                }}
-                transition={{ duration: 3, repeat: Infinity }}
-                style={{ transform: "translateZ(50px)" }}
-              >
-                PA
-              </motion.span>
+            <TiltCard className="relative rounded-full overflow-hidden w-64 h-64 md:w-80 md:h-80 cursor-pointer shadow-2xl">
+              <img 
+                src={profileImage} 
+                alt="Md Shiful Islam - Professional Video Editor" 
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-background/40 to-transparent" />
             </TiltCard>
             
-            {/* Decorative elements */}
+            {/* Decorative ring */}
             <motion.div 
-              className="absolute -inset-3 border-2 border-[hsl(var(--gold))]/20 rounded-2xl -z-10"
+              className="absolute -inset-4 border-2 border-[hsl(var(--gold))]/30 rounded-full -z-10"
               animate={{
-                opacity: [0.2, 0.4, 0.2],
-              }}
-              transition={{ duration: 2, repeat: Infinity }}
-            />
-            <motion.div
-              className="absolute -bottom-4 -right-4 w-24 h-24 bg-[hsl(var(--gold))]/10 rounded-full blur-xl"
-              animate={{
-                scale: [1, 1.2, 1],
+                rotate: 360,
                 opacity: [0.3, 0.5, 0.3],
               }}
-              transition={{ duration: 3, repeat: Infinity }}
+              transition={{ rotate: { duration: 20, repeat: Infinity, ease: "linear" }, opacity: { duration: 2, repeat: Infinity } }}
             />
+            <motion.div 
+              className="absolute -inset-8 border border-[hsl(var(--gold))]/10 rounded-full -z-10"
+              animate={{
+                rotate: -360,
+              }}
+              transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+            />
+            
+            {/* Floating badge */}
+            <motion.div
+              className="absolute -bottom-2 -right-2 bg-[hsl(var(--gold))] text-black px-4 py-2 rounded-full font-semibold text-sm shadow-lg"
+              animate={{ y: [0, -5, 0] }}
+              transition={{ duration: 2, repeat: Infinity }}
+            >
+              5+ Years
+            </motion.div>
           </motion.div>
 
-          {/* Content */}
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="space-y-8"
-          >
+          {/* Name and Title */}
+          <div className="text-center lg:text-left">
+            <motion.span
+              initial={{ opacity: 0, scale: 0.5 }}
+              animate={isInView ? { opacity: 1, scale: 1 } : {}}
+              transition={{ duration: 0.5 }}
+              className="inline-block text-sm font-medium text-[hsl(var(--gold))] uppercase tracking-[0.15em] mb-2"
+            >
+              About Me
+            </motion.span>
+            <h2 className="font-dancing text-4xl md:text-5xl lg:text-6xl text-gradient mb-4">
+              Md Shiful Islam
+            </h2>
+            <p className="font-playfair text-xl md:text-2xl text-muted-foreground italic">
+              Professional Video Editor
+            </p>
             <motion.p 
-              className="text-lg text-muted-foreground leading-relaxed"
+              className="text-lg text-muted-foreground leading-relaxed mt-6 max-w-xl"
               initial={{ opacity: 0 }}
               animate={isInView ? { opacity: 1 } : {}}
               transition={{ duration: 0.8, delay: 0.4 }}
@@ -289,7 +278,21 @@ export default function AboutSection() {
               visions to life through meticulous editing, stunning motion
               graphics, and cinematic color grading.
             </motion.p>
+          </div>
+        </motion.div>
 
+        {/* Skills Grid */}
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+          {/* Skills Section */}
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="space-y-6"
+          >
+            <h3 className="font-dancing text-3xl md:text-4xl text-gradient mb-6">
+              My Expertise
+            </h3>
             <motion.div 
               className="grid grid-cols-2 gap-4"
               variants={containerVariants}
@@ -305,7 +308,18 @@ export default function AboutSection() {
                 />
               ))}
             </motion.div>
+          </motion.div>
 
+          {/* CTA Section */}
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="flex flex-col items-center lg:items-start justify-center space-y-6"
+          >
+            <h3 className="font-playfair text-2xl md:text-3xl text-foreground italic">
+              "Turning raw footage into <span className="text-gradient">cinematic stories</span>"
+            </h3>
             <motion.a
               href="#contact"
               initial={{ opacity: 0, y: 20 }}
@@ -313,7 +327,7 @@ export default function AboutSection() {
               transition={{ duration: 0.5, delay: 0.8 }}
               whileHover={{ scale: 1.05, boxShadow: "0 10px 40px -10px hsl(var(--gold) / 0.5)" }}
               whileTap={{ scale: 0.95 }}
-              className="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-[hsl(var(--gold))] to-[hsl(var(--gold-light))] text-black font-semibold rounded-lg"
+              className="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-[hsl(var(--gold))] to-[hsl(var(--gold-light))] text-black font-semibold rounded-lg font-sora"
             >
               Let's Work Together
             </motion.a>
