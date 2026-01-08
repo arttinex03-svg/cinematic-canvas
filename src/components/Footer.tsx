@@ -32,7 +32,7 @@ export default function Footer() {
               href="#"
               className="font-sora text-2xl font-bold tracking-wider text-foreground"
             >
-              KORVN
+              Portfolio_Atlas
             </a>
             <p className="text-muted-foreground mt-3 text-sm">
               Turning raw footage into cinematic stories.
@@ -99,10 +99,10 @@ export default function Footer() {
             <ul className="space-y-3">
               <li>
                 <a
-                  href="mailto:hello@korvn.com"
+                  href="mailto:hello@portfolioatlas.com"
                   className="text-sm text-muted-foreground hover:text-[hsl(var(--gold))] transition-colors"
                 >
-                  hello@korvn.com
+                  hello@portfolioatlas.com
                 </a>
               </li>
               <li>
@@ -128,7 +128,7 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-border flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} KORVN. All rights reserved.
+            © {new Date().getFullYear()} Portfolio_Atlas. All rights reserved.
           </p>
           <p className="text-sm text-muted-foreground">
             Designed & Developed with ❤️
