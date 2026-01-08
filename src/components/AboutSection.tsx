@@ -1,6 +1,6 @@
-import { motion, useInView, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { useRef, useState } from "react";
-import { Film, Sparkles, Palette, Volume2 } from "lucide-react";
+import { motion, useInView, useMotionValue, useSpring, useTransform, animate } from "framer-motion";
+import { useRef, useState, useEffect } from "react";
+import { Film, Sparkles, Palette, Volume2, Users, Award, Briefcase, Clock } from "lucide-react";
 
 const skills = [
   {
@@ -24,6 +24,60 @@ const skills = [
     description: "Audio mixing & mastering",
   },
 ];
+
+const stats = [
+  { icon: Users, value: 100, suffix: "+", label: "Happy Clients" },
+  { icon: Briefcase, value: 250, suffix: "+", label: "Projects Done" },
+  { icon: Award, value: 5, suffix: "+", label: "Years Experience" },
+  { icon: Clock, value: 24, suffix: "/7", label: "Support" },
+];
+
+// Counter Component with Animation
+function CounterStat({ stat, isInView }: { stat: typeof stats[0]; isInView: boolean }) {
+  const [count, setCount] = useState(0);
+  const Icon = stat.icon;
+
+  useEffect(() => {
+    if (isInView) {
+      const controls = animate(0, stat.value, {
+        duration: 2,
+        ease: "easeOut",
+        onUpdate: (value) => setCount(Math.floor(value)),
+      });
+      return () => controls.stop();
+    }
+  }, [isInView, stat.value]);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={isInView ? { opacity: 1, y: 0 } : {}}
+      whileHover={{ scale: 1.05, y: -5 }}
+      className="relative p-6 bg-card/50 backdrop-blur-sm rounded-2xl border border-border group cursor-pointer overflow-hidden"
+    >
+      {/* Glow effect on hover */}
+      <motion.div
+        className="absolute inset-0 bg-gradient-to-br from-[hsl(var(--gold))]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+      />
+      
+      <div className="relative z-10 flex flex-col items-center text-center">
+        <motion.div
+          className="w-14 h-14 rounded-xl bg-[hsl(var(--gold))]/10 flex items-center justify-center mb-4"
+          whileHover={{ rotate: 360 }}
+          transition={{ duration: 0.5 }}
+        >
+          <Icon size={28} className="text-[hsl(var(--gold))]" />
+        </motion.div>
+        <motion.span 
+          className="text-4xl md:text-5xl font-bold text-gradient"
+        >
+          {count}{stat.suffix}
+        </motion.span>
+        <p className="text-muted-foreground text-sm mt-2">{stat.label}</p>
+      </div>
+    </motion.div>
+  );
+}
 
 // 3D Tilt Card Component
 function TiltCard({ children, className }: { children: React.ReactNode; className?: string }) {
@@ -129,8 +183,28 @@ export default function AboutSection() {
   };
 
   return (
-    <section id="about" className="py-24 md:py-32 bg-[hsl(var(--surface))] overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="about" className="py-24 md:py-32 relative overflow-hidden">
+      {/* Textured Background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-[hsl(220,20%,8%)] via-[hsl(260,15%,10%)] to-[hsl(220,20%,6%)]" />
+      <div 
+        className="absolute inset-0 opacity-30"
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
+        }}
+      />
+      {/* Gradient Orbs */}
+      <motion.div
+        className="absolute top-20 left-10 w-72 h-72 rounded-full bg-[hsl(var(--gold))]/10 blur-3xl"
+        animate={{ scale: [1, 1.2, 1], opacity: [0.1, 0.2, 0.1] }}
+        transition={{ duration: 8, repeat: Infinity }}
+      />
+      <motion.div
+        className="absolute bottom-20 right-10 w-96 h-96 rounded-full bg-purple-500/10 blur-3xl"
+        animate={{ scale: [1.2, 1, 1.2], opacity: [0.1, 0.15, 0.1] }}
+        transition={{ duration: 10, repeat: Infinity }}
+      />
+      
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
         <motion.div
           ref={ref}
@@ -253,6 +327,25 @@ export default function AboutSection() {
             </motion.a>
           </motion.div>
         </div>
+
+        {/* Stats Section with Counter Animation */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.5 }}
+          className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-20"
+        >
+          {stats.map((stat, index) => (
+            <motion.div
+              key={stat.label}
+              initial={{ opacity: 0, y: 30 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.5, delay: 0.6 + index * 0.1 }}
+            >
+              <CounterStat stat={stat} isInView={isInView} />
+            </motion.div>
+          ))}
+        </motion.div>
       </div>
     </section>
   );
