@@ -1,7 +1,8 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { Film, Sparkles, Palette, Volume2 } from "lucide-react";
+import profileImage from "@/assets/profile-shiful.jpg";
 const skills = [{
   icon: Film,
   title: "Video Editing",
@@ -47,19 +48,64 @@ export default function AboutSection() {
 
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           {/* Image */}
-          <motion.div initial={{
-          opacity: 0,
-          x: -50
-        }} animate={isInView ? {
-          opacity: 1,
-          x: 0
-        } : {}} transition={{
-          duration: 0.6,
-          delay: 0.2
-        }} className="relative">
+          <motion.div 
+            initial={{ opacity: 0, x: -50 }} 
+            animate={isInView ? { opacity: 1, x: 0 } : {}} 
+            transition={{ duration: 0.6, delay: 0.2 }} 
+            className="relative flex justify-center lg:justify-start"
+          >
+            {/* Animated glow ring */}
+            <div className="absolute inset-0 flex items-center justify-center lg:justify-start">
+              <motion.div 
+                className="w-72 h-72 md:w-80 md:h-80 rounded-full"
+                style={{
+                  background: "conic-gradient(from 0deg, hsl(var(--gold)), hsl(var(--gold-light)), hsl(var(--gold)), transparent, hsl(var(--gold)))",
+                }}
+                animate={{ rotate: 360 }}
+                transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+              />
+            </div>
             
-            {/* Decorative border */}
-            <div className="absolute -inset-3 border-2 border-[hsl(var(--gold))]/20 rounded-2xl -z-10" />
+            {/* Profile image container */}
+            <motion.div 
+              className="relative group cursor-pointer"
+              whileHover={{ scale: 1.02 }}
+              transition={{ duration: 0.3 }}
+            >
+              {/* Outer decorative border */}
+              <div className="absolute -inset-2 bg-gradient-to-br from-[hsl(var(--gold))] via-[hsl(var(--gold-light))] to-[hsl(var(--gold))] rounded-full opacity-60 blur-sm group-hover:opacity-100 group-hover:blur-md transition-all duration-500" />
+              
+              {/* Inner ring */}
+              <div className="absolute -inset-1 bg-gradient-to-tr from-[hsl(var(--gold))]/80 to-[hsl(var(--gold-light))]/80 rounded-full" />
+              
+              {/* Image wrapper */}
+              <div className="relative w-64 h-64 md:w-72 md:h-72 rounded-full overflow-hidden border-4 border-background">
+                <motion.img 
+                  src={profileImage} 
+                  alt="Md Shiful Islam - Professional Video Editor"
+                  className="w-full h-full object-cover"
+                  whileHover={{ scale: 1.1 }}
+                  transition={{ duration: 0.5 }}
+                />
+                
+                {/* Hover overlay */}
+                <motion.div 
+                  className="absolute inset-0 bg-gradient-to-t from-[hsl(var(--gold))]/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                />
+              </div>
+              
+              {/* Floating accent dots */}
+              <motion.div 
+                className="absolute -top-2 -right-2 w-6 h-6 bg-[hsl(var(--gold))] rounded-full shadow-lg shadow-[hsl(var(--gold))]/50"
+                animate={{ y: [-2, 2, -2] }}
+                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+              />
+              <motion.div 
+                className="absolute -bottom-1 -left-1 w-4 h-4 bg-[hsl(var(--gold-light))] rounded-full shadow-lg shadow-[hsl(var(--gold-light))]/50"
+                animate={{ y: [2, -2, 2] }}
+                transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+              />
+            </motion.div>
           </motion.div>
 
           {/* Content */}
