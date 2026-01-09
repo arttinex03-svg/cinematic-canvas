@@ -15,10 +15,10 @@ function App() {
       <main>
         <HeroSection />
         <AboutSection />
+        <ExperienceSection />
         <ServicesSection />
         <PortfolioSection />
         <PackagesSection />
-        <ExperienceSection />
         <ContactSection />
       </main>
       <Footer />
