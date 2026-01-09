@@ -13,12 +13,12 @@ function App() {
     <div className="min-h-screen bg-background">
       <Navbar />
       <main>
-        <HeroSection />
         <AboutSection />
+        <HeroSection />
+        <ExperienceSection />
         <ServicesSection />
         <PortfolioSection />
         <PackagesSection />
-        <ExperienceSection />
         <ContactSection />
       </main>
       <Footer />
