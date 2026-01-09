@@ -198,17 +198,18 @@ export default function AboutSection() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="relative flex justify-center lg:justify-start"
           >
-            {/* Animated glow ring */}
-            <div className="absolute inset-0 flex items-center justify-center lg:justify-start">
-              <motion.div
-                className="w-72 h-72 md:w-80 md:h-80 rounded-full"
-                style={{
-                  background: "conic-gradient(from 0deg, hsl(var(--gold)), hsl(var(--gold-light)), hsl(var(--gold)), transparent, hsl(var(--gold)))",
-                }}
-                animate={{ rotate: 360 }}
-                transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-              />
-            </div>
+            {/* Animated border glow */}
+            <motion.div
+              className="absolute -inset-3 rounded-2xl opacity-50"
+              style={{
+                background: "linear-gradient(45deg, hsl(var(--gold)), hsl(var(--gold-light)), hsl(var(--gold)), hsl(var(--gold-light)))",
+                backgroundSize: "300% 300%",
+              }}
+              animate={{ 
+                backgroundPosition: ["0% 0%", "100% 100%", "0% 0%"],
+              }}
+              transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+            />
 
             {/* Profile image container with 3D tilt */}
             <motion.div
@@ -222,15 +223,15 @@ export default function AboutSection() {
             >
               {/* Outer decorative border */}
               <motion.div 
-                className="absolute -inset-2 bg-gradient-to-br from-[hsl(var(--gold))] via-[hsl(var(--gold-light))] to-[hsl(var(--gold))] rounded-full blur-sm transition-all duration-500"
+                className="absolute -inset-2 bg-gradient-to-br from-[hsl(var(--gold))] via-[hsl(var(--gold-light))] to-[hsl(var(--gold))] rounded-2xl blur-sm transition-all duration-500"
                 animate={imageHovered ? { opacity: 1, scale: 1.02 } : { opacity: 0.6, scale: 1 }}
               />
 
               {/* Inner ring */}
-              <div className="absolute -inset-1 bg-gradient-to-tr from-[hsl(var(--gold))]/80 to-[hsl(var(--gold-light))]/80 rounded-full" />
+              <div className="absolute -inset-1 bg-gradient-to-tr from-[hsl(var(--gold))]/80 to-[hsl(var(--gold-light))]/80 rounded-2xl" />
 
               {/* Image wrapper */}
-              <div className="relative w-64 h-64 md:w-72 md:h-72 rounded-full overflow-hidden border-4 border-background">
+              <div className="relative w-64 h-80 md:w-72 md:h-96 rounded-xl overflow-hidden border-4 border-background">
                 <motion.img
                   src={profileImage}
                   alt="Md Shiful Islam - Professional Video Editor"
