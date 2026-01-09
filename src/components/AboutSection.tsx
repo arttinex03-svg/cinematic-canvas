@@ -199,20 +199,20 @@ export default function AboutSection() {
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
-        {/* Profile Image First - Hero Style */}
+        {/* Section 1: About Me - Profile First */}
         <motion.div
           ref={ref}
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20 mb-16"
+          className="flex flex-col items-center text-center mb-20"
         >
           {/* 3D Tilt Profile Image */}
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={isInView ? { opacity: 1, scale: 1 } : {}}
             transition={{ duration: 0.8, delay: 0.1 }}
-            className="relative perspective-1000 flex-shrink-0"
+            className="relative perspective-1000 mb-8"
           >
             <TiltCard className="relative rounded-full overflow-hidden w-64 h-64 md:w-80 md:h-80 cursor-pointer shadow-2xl">
               <img 
@@ -250,89 +250,98 @@ export default function AboutSection() {
             </motion.div>
           </motion.div>
 
-          {/* Name and Title */}
-          <div className="text-center lg:text-left">
-            <motion.span
-              initial={{ opacity: 0, scale: 0.5 }}
-              animate={isInView ? { opacity: 1, scale: 1 } : {}}
-              transition={{ duration: 0.5 }}
-              className="inline-block text-sm font-medium text-[hsl(var(--gold))] uppercase tracking-[0.15em] mb-2"
-            >
-              About Me
-            </motion.span>
-            <h2 className="font-dancing text-4xl md:text-5xl lg:text-6xl text-gradient mb-4">
-              Md Shiful Islam
-            </h2>
-            <p className="font-playfair text-xl md:text-2xl text-muted-foreground italic">
+          {/* Name */}
+          <motion.span
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={isInView ? { opacity: 1, scale: 1 } : {}}
+            transition={{ duration: 0.5 }}
+            className="inline-block text-sm font-medium text-[hsl(var(--gold))] uppercase tracking-[0.15em] mb-3"
+          >
+            About Me
+          </motion.span>
+          <h2 className="font-dancing text-5xl md:text-6xl lg:text-7xl text-gradient mb-2">
+            Md Shiful Islam
+          </h2>
+        </motion.div>
+
+        {/* Section 2: Professional Video Editor - Description */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="max-w-4xl mx-auto text-center mb-20"
+        >
+          <motion.div
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-[hsl(var(--gold))]/30 bg-[hsl(var(--gold))]/5 mb-6"
+            whileHover={{ scale: 1.05 }}
+          >
+            <Sparkles size={16} className="text-[hsl(var(--gold))]" />
+            <span className="font-playfair text-xl md:text-2xl text-[hsl(var(--gold))] italic">
               Professional Video Editor
-            </p>
-            <motion.p 
-              className="text-lg text-muted-foreground leading-relaxed mt-6 max-w-xl"
-              initial={{ opacity: 0 }}
-              animate={isInView ? { opacity: 1 } : {}}
-              transition={{ duration: 0.8, delay: 0.4 }}
-            >
-              I'm a professional video editor with a passion for transforming
-              raw footage into compelling visual narratives. With expertise in
-              Premiere Pro, After Effects, and DaVinci Resolve, I bring creative
-              visions to life through meticulous editing, stunning motion
-              graphics, and cinematic color grading.
-            </motion.p>
-          </div>
+            </span>
+          </motion.div>
+          
+          <motion.p 
+            className="text-lg md:text-xl text-muted-foreground leading-relaxed mb-8"
+            initial={{ opacity: 0 }}
+            animate={isInView ? { opacity: 1 } : {}}
+            transition={{ duration: 0.8, delay: 0.4 }}
+          >
+            I'm a professional video editor with a passion for transforming
+            raw footage into compelling visual narratives. With expertise in
+            Premiere Pro, After Effects, and DaVinci Resolve, I bring creative
+            visions to life through meticulous editing, stunning motion
+            graphics, and cinematic color grading.
+          </motion.p>
+
+          <motion.h3 
+            className="font-playfair text-2xl md:text-3xl text-foreground italic mb-8"
+            initial={{ opacity: 0 }}
+            animate={isInView ? { opacity: 1 } : {}}
+            transition={{ duration: 0.8, delay: 0.5 }}
+          >
+            "Turning raw footage into <span className="text-gradient">cinematic stories</span>"
+          </motion.h3>
+
+          <motion.a
+            href="#contact"
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.5, delay: 0.6 }}
+            whileHover={{ scale: 1.05, boxShadow: "0 10px 40px -10px hsl(var(--gold) / 0.5)" }}
+            whileTap={{ scale: 0.95 }}
+            className="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-[hsl(var(--gold))] to-[hsl(var(--gold-light))] text-black font-semibold rounded-lg font-sora"
+          >
+            Let's Work Together
+          </motion.a>
         </motion.div>
 
         {/* Skills Grid */}
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-          {/* Skills Section */}
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="space-y-6"
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className="mb-20"
+        >
+          <h3 className="font-dancing text-3xl md:text-4xl text-gradient text-center mb-10">
+            My Expertise
+          </h3>
+          <motion.div 
+            className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto"
+            variants={containerVariants}
+            initial="hidden"
+            animate={isInView ? "visible" : "hidden"}
           >
-            <h3 className="font-dancing text-3xl md:text-4xl text-gradient mb-6">
-              My Expertise
-            </h3>
-            <motion.div 
-              className="grid grid-cols-2 gap-4"
-              variants={containerVariants}
-              initial="hidden"
-              animate={isInView ? "visible" : "hidden"}
-            >
-              {skills.map((skill, index) => (
-                <SkillCard 
-                  key={skill.title} 
-                  skill={skill} 
-                  index={index} 
-                  isInView={isInView} 
-                />
-              ))}
-            </motion.div>
+            {skills.map((skill, index) => (
+              <SkillCard 
+                key={skill.title} 
+                skill={skill} 
+                index={index} 
+                isInView={isInView} 
+              />
+            ))}
           </motion.div>
-
-          {/* CTA Section */}
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="flex flex-col items-center lg:items-start justify-center space-y-6"
-          >
-            <h3 className="font-playfair text-2xl md:text-3xl text-foreground italic">
-              "Turning raw footage into <span className="text-gradient">cinematic stories</span>"
-            </h3>
-            <motion.a
-              href="#contact"
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: 0.8 }}
-              whileHover={{ scale: 1.05, boxShadow: "0 10px 40px -10px hsl(var(--gold) / 0.5)" }}
-              whileTap={{ scale: 0.95 }}
-              className="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-[hsl(var(--gold))] to-[hsl(var(--gold-light))] text-black font-semibold rounded-lg font-sora"
-            >
-              Let's Work Together
-            </motion.a>
-          </motion.div>
-        </div>
+        </motion.div>
 
         {/* Stats Section with Counter Animation */}
         <motion.div
