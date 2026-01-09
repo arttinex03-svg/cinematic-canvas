@@ -231,7 +231,7 @@ export default function AboutSection() {
               <div className="absolute -inset-1 bg-gradient-to-tr from-[hsl(var(--gold))]/80 to-[hsl(var(--gold-light))]/80 rounded-2xl" />
 
               {/* Image wrapper */}
-              <div className="relative w-64 h-80 md:w-72 md:h-96 rounded-xl overflow-hidden border-4 border-background">
+              <div className="relative w-72 h-96 md:w-80 md:h-[28rem] lg:w-96 lg:h-[32rem] rounded-2xl overflow-hidden border-2 border-[hsl(var(--gold))]/30">
                 <motion.img
                   src={profileImage}
                   alt="Md Shiful Islam - Professional Video Editor"
@@ -240,9 +240,37 @@ export default function AboutSection() {
                   transition={{ duration: 0.5 }}
                 />
 
+                {/* Bottom gradient overlay with name */}
+                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-background via-background/90 to-transparent pt-16 pb-5 px-5">
+                  <motion.span 
+                    className="font-script text-xl md:text-2xl text-[hsl(var(--gold))] block"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={isInView ? { opacity: 1, y: 0 } : {}}
+                    transition={{ duration: 0.5, delay: 0.6 }}
+                  >
+                    Hello, I'm
+                  </motion.span>
+                  <motion.h3 
+                    className="font-sora text-2xl md:text-3xl font-bold text-foreground mt-1"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={isInView ? { opacity: 1, y: 0 } : {}}
+                    transition={{ duration: 0.5, delay: 0.7 }}
+                  >
+                    Md Shiful Islam
+                  </motion.h3>
+                  <motion.p 
+                    className="text-sm text-muted-foreground mt-1"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={isInView ? { opacity: 1, y: 0 } : {}}
+                    transition={{ duration: 0.5, delay: 0.8 }}
+                  >
+                    Professional Video Editor & Designer
+                  </motion.p>
+                </div>
+
                 {/* Hover overlay with icon */}
                 <motion.div
-                  className="absolute inset-0 bg-gradient-to-t from-[hsl(var(--gold))]/50 via-transparent to-transparent flex items-center justify-center"
+                  className="absolute inset-0 bg-[hsl(var(--gold))]/10 flex items-center justify-center"
                   initial={{ opacity: 0 }}
                   animate={imageHovered ? { opacity: 1 } : { opacity: 0 }}
                   transition={{ duration: 0.3 }}
@@ -251,9 +279,9 @@ export default function AboutSection() {
                     initial={{ scale: 0 }}
                     animate={imageHovered ? { scale: 1 } : { scale: 0 }}
                     transition={{ duration: 0.3, delay: 0.1 }}
-                    className="w-14 h-14 rounded-full bg-background/90 flex items-center justify-center shadow-xl"
+                    className="w-16 h-16 rounded-full bg-background/90 flex items-center justify-center shadow-xl backdrop-blur-sm"
                   >
-                    <Play size={24} className="text-[hsl(var(--gold))] ml-1" fill="hsl(var(--gold))" />
+                    <Play size={28} className="text-[hsl(var(--gold))] ml-1" fill="hsl(var(--gold))" />
                   </motion.div>
                 </motion.div>
               </div>
